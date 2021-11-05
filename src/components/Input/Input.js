@@ -8,6 +8,9 @@ class Input extends Component {
       children,
       typeInput,
       dataTest,
+      onInputChange,
+      nameInput,
+      inputValue,
     } = this.props;
 
     return (
@@ -17,6 +20,9 @@ class Input extends Component {
           id={ inputId }
           type={ typeInput }
           data-testid={ dataTest }
+          onChange={ onInputChange }
+          name={ nameInput }
+          value={ inputValue }
         />
       </label>
     );
@@ -25,9 +31,13 @@ class Input extends Component {
 
 Input.propTypes = {
   inputId: PropTypes.string.isRequired,
-  // nameInput: PropTypes.string.isRequired,
-  // inputValue: PropTypes.string.isRequired,
-  // handleChange: PropTypes.func.isRequired,
+  nameInput: PropTypes.string.isRequired,
+  inputValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+  ]).isRequired,
+  onInputChange: PropTypes.func.isRequired,
   children: PropTypes.string.isRequired,
   typeInput: PropTypes.string.isRequired,
   dataTest: PropTypes.string.isRequired,
