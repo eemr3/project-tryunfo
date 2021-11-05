@@ -1,39 +1,13 @@
 import React, { Component } from 'react';
-import Input from '../Input/Input';
-import TextArea from '../TextArea/TextArea';
-import Select from '../Select/Select';
+import PropTypes from 'prop-types';
+import Input from './Input/Input';
+import TextArea from './TextArea/TextArea';
+import Select from './Select/Select';
 
 import './Form.css';
-import Button from '../Button/Button';
+import Button from './Button/Button';
 
 class Form extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
-      cardImage: '',
-      cardRare: '',
-      cardTrunfo: false,
-      // hasTrunfo: '',
-      // isSaveButtonDisabled: '',
-
-    };
-    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-  }
-
-  onInputChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [name]: value });
-  }
-
-  onSaveButtonClick() {}
-
   render() {
     const {
       cardName,
@@ -44,8 +18,11 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      onInputChange,
+      onSaveButtonClick,
       // hasTrunfo,
-    } = this.state;
+      isSaveButtonDisabled,
+    } = this.props;
     return (
       <section className="container-form">
         <form>
@@ -55,15 +32,15 @@ class Form extends Component {
             typeInput="text"
             dataTest="name-input"
             inputValue={ cardName }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
           >
             Nome
           </Input>
           <TextArea
             textId="text-descr"
             textValue={ cardDescription }
-            onInputChange={ this.onInputChange }
-            textInfo="card-description"
+            onInputChange={ onInputChange }
+            textInfo="cardDescription"
           >
             Descriçã
           </TextArea>
@@ -73,7 +50,7 @@ class Form extends Component {
             typeInput="number"
             dataTest="attr1-input"
             inputValue={ cardAttr1 }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
 
           >
             Attr01
@@ -85,7 +62,7 @@ class Form extends Component {
             typeInput="number"
             dataTest="attr2-input"
             inputValue={ cardAttr2 }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
           >
             Attr02
           </Input>
@@ -95,7 +72,7 @@ class Form extends Component {
             typeInput="number"
             dataTest="attr3-input"
             inputValue={ cardAttr3 }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
           >
             Attr03
           </Input>
@@ -105,7 +82,7 @@ class Form extends Component {
             typeInput="text"
             dataTest="image-input"
             inputValue={ cardImage }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
           >
             Imagem
           </Input>
@@ -113,7 +90,7 @@ class Form extends Component {
             sltId="select-rarity"
             dataTest="rare-input"
             sltValue={ cardRare }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
           >
             Raridade
           </Select>
@@ -123,15 +100,31 @@ class Form extends Component {
             typeInput="checkbox"
             dataTest="trunfo-input"
             inputValue={ cardTrunfo }
-            onInputChange={ this.onInputChange }
+            onInputChange={ onInputChange }
           >
             Super Trybe Trunfo
           </Input>
-          <Button />
+          <Button
+            onSaveButtonClick={ onSaveButtonClick }
+            isDisabled={ isSaveButtonDisabled }
+          />
         </form>
       </section>
     );
   }
 }
 
+Form.propTypes = {
+  cardName: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.number.isRequired,
+  cardAttr2: PropTypes.number.isRequired,
+  cardAttr3: PropTypes.number.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+};
 export default Form;
