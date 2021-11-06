@@ -14,22 +14,65 @@ class App extends React.Component {
       cardAttr2: '',
       cardAttr3: '',
       cardImage: '',
-      cardRare: 'Normal',
+      cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
+
     };
+
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.checkedValidation = this.checkedValidation.bind(this);
+    this.validationForm = this.validationForm.bind(this);
   }
 
   onInputChange({ target }) {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      this.checkedValidation();
+      this.validationForm();
+    });
   }
 
-  onSaveButtonClick() {}
+  onSaveButtonClick(event) {
+    event.preventDefault();
+  }
+
+  checkedValidation() {
+    const {
+      cardName,
+      cardDescription,
+      cardImage,
+      cardRare,
+    } = this.state;
+    const isEmpty = [
+      !cardName,
+      !cardDescription,
+      !cardImage,
+      !cardRare];
+    const formIsEmpty = isEmpty.every((empty) => empty !== true);
+    return formIsEmpty;
+  }
+
+  validationForm() {
+    const {
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+    } = this.state;
+    const minMax = [
+      cardAttr1,
+      cardAttr2,
+      cardAttr3];
+    const resultValue = minMax.every((value) => (!(value < '0' || value > '90')));
+    const sum = minMax.reduce((acc, curr) => Number(acc) + Number(curr));
+    const maxAttr = 210;
+    const teste = sum > maxAttr;
+    const result = resultValue && this.checkedValidation() && !teste;
+    this.setState({ isSaveButtonDisabled: !result });
+  }
 
   render() {
     const {
