@@ -119,36 +119,38 @@ class App extends React.Component {
 
     return (
       <main className="container">
-        <section className="form-contaniner">
-          <Form
-            cardName={ cardName }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardDescription={ cardDescription }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-            onInputChange={ this.onInputChange }
-            hasTrunfo={ hasTrunfo }
-            isSaveButtonDisabled={ isSaveButtonDisabled }
-            onSaveButtonClick={ this.onSaveButtonClick }
+        <section className="container-form-card">
+          <div className="form-container">
+            <Form
+              cardName={ cardName }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardDescription={ cardDescription }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+              onInputChange={ this.onInputChange }
+              hasTrunfo={ hasTrunfo }
+              isSaveButtonDisabled={ isSaveButtonDisabled }
+              onSaveButtonClick={ this.onSaveButtonClick }
 
-          />
+            />
+          </div>
+          <div className="preview-container">
+            <Card
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+            />
+          </div>
         </section>
-        <section className="preview-container">
-          <Card
-            cardName={ cardName }
-            cardDescription={ cardDescription }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-          />
-        </section>
-        <div className="list-card">
+        <section className="list-card">
           {this.onSaveButtonClick
           && newDeck.map((card) => (
             <Card
@@ -163,7 +165,7 @@ class App extends React.Component {
               cardTrunfo={ card.cardTrunfo }
             />
           ))}
-        </div>
+        </section>
       </main>
     );
   }

@@ -1,16 +1,26 @@
 .container {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
-.form-container {
+.form-container{
   border: 1px solid black;
+  flex-basis: 40%;
   margin: 10px 4px;
-  width: 45%;
+  width: 350px;
 }
 
 .preview-container {
   border: 1px solid black;
+  flex-basis: 40%;
   margin: 10px 4px;
-  width: 45%;
+  width: 350px;
+}
+
+.container-form-card {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+  width: 100%;
 }
