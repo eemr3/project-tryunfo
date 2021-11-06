@@ -116,7 +116,9 @@ class Form extends Component {
             dataTestBtn="save-button"
             isDisabled={ isSaveButtonDisabled }
             typeBtn="submit"
-          />
+          >
+            Salvar
+          </Button>
         </form>
       </section>
     );

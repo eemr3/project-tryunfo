@@ -19,6 +19,7 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       newDeck: [],
+      isDeleteButton: true,
     };
 
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
@@ -56,7 +57,8 @@ class App extends React.Component {
         cardAttr3,
         cardImage,
         cardRare,
-        cardTrunfo }],
+        cardTrunfo,
+      }],
       cardName: '',
       cardDescription: '',
       cardAttr1: '0',
@@ -115,6 +117,7 @@ class App extends React.Component {
       hasTrunfo,
       isSaveButtonDisabled,
       newDeck,
+      isDeleteButton,
     } = this.state;
 
     return (
@@ -147,23 +150,26 @@ class App extends React.Component {
               cardImage={ cardImage }
               cardRare={ cardRare }
               cardTrunfo={ cardTrunfo }
+              isVisible={ false }
             />
           </div>
         </section>
         <section className="list-card">
           {this.onSaveButtonClick
           && newDeck.map((card) => (
-            <Card
-              key={ card.cardName }
-              cardName={ card.cardName }
-              cardDescription={ card.cardDescription }
-              cardAttr1={ card.cardAttr1 }
-              cardAttr2={ card.cardAttr2 }
-              cardAttr3={ card.cardAttr3 }
-              cardImage={ card.cardImage }
-              cardRare={ card.cardRare }
-              cardTrunfo={ card.cardTrunfo }
-            />
+            <div key={ card.cardName }>
+              <Card
+                cardName={ card.cardName }
+                cardDescription={ card.cardDescription }
+                cardAttr1={ card.cardAttr1 }
+                cardAttr2={ card.cardAttr2 }
+                cardAttr3={ card.cardAttr3 }
+                cardImage={ card.cardImage }
+                cardRare={ card.cardRare }
+                cardTrunfo={ card.cardTrunfo }
+                isVisible={ isDeleteButton }
+              />
+            </div>
           ))}
         </section>
       </main>

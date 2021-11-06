@@ -17,3 +17,15 @@
   margin: 0 10px;
   word-break: break-all;
 }
+
+.container-cards {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+}
+
+.container-cards button {
+  width: 140px;
+}

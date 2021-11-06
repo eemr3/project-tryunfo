@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './Card.css';
+import Button from './Button/Button';
 
 class Card extends Component {
   render() {
+    const bntDelete = (
+      <Button
+        dataTestBtn="delete-button"
+        typeBtn="button"
+        isDisabled={ false }
+      >
+        Excluir
+      </Button>
+    );
     const {
       cardName,
       cardDescription,
@@ -13,9 +23,10 @@ class Card extends Component {
       cardAttr3,
       cardImage,
       cardRare,
-      cardTrunfo } = this.props;
+      cardTrunfo,
+      isVisible } = this.props;
     return (
-      <div>
+      <div className="container-cards">
         <div className="card-content">
           <h3 data-testid="name-card">{cardName}</h3>
           <img data-testid="image-card" src={ cardImage } alt={ cardName } />
@@ -26,6 +37,7 @@ class Card extends Component {
           <span data-testid="rare-card">{cardRare}</span>
           {cardTrunfo && <span data-testid="trunfo-card">Super Trunfo</span> }
         </div>
+        {isVisible && bntDelete}
       </div>
     );
   }
@@ -40,5 +52,6 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool.isRequired,
 };
 export default Card;
