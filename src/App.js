@@ -26,6 +26,15 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.checkedValidation = this.checkedValidation.bind(this);
     this.validationForm = this.validationForm.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(cardTitle) {
+    this.setState((prevState) => ({
+      newDeck: prevState.newDeck.filter((card) => card.cardName !== cardTitle),
+      cardTrunfo: false,
+      hasTrunfo: false,
+    }));
   }
 
   onInputChange({ target }) {
@@ -141,17 +150,21 @@ class App extends React.Component {
             />
           </div>
           <div className="preview-container">
-            <Card
-              cardName={ cardName }
-              cardDescription={ cardDescription }
-              cardAttr1={ cardAttr1 }
-              cardAttr2={ cardAttr2 }
-              cardAttr3={ cardAttr3 }
-              cardImage={ cardImage }
-              cardRare={ cardRare }
-              cardTrunfo={ cardTrunfo }
-              isVisible={ false }
-            />
+            <h2>Pré-visualização</h2>
+            <div>
+              <Card
+                cardName={ cardName }
+                cardDescription={ cardDescription }
+                cardAttr1={ cardAttr1 }
+                cardAttr2={ cardAttr2 }
+                cardAttr3={ cardAttr3 }
+                cardImage={ cardImage }
+                cardRare={ cardRare }
+                cardTrunfo={ cardTrunfo }
+                isVisible={ false }
+                handleDelete={ () => {} }
+              />
+            </div>
           </div>
         </section>
         <section className="list-card">
@@ -168,6 +181,7 @@ class App extends React.Component {
                 cardRare={ card.cardRare }
                 cardTrunfo={ card.cardTrunfo }
                 isVisible={ isDeleteButton }
+                handleDelete={ this.handleDelete }
               />
             </div>
           ))}

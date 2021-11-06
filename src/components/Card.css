@@ -1,11 +1,13 @@
 .card-content {
   align-items: center;
+  background-color: #036B52;
   border: 1px solid black;
   border-radius: 5px;
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
   height: 450px;
-  margin: 40px auto;
+  margin-bottom: 20px;
   width: 300px;
 }
 
@@ -27,5 +29,11 @@
 }
 
 .container-cards button {
+  margin-top: 7px;
   width: 140px;
+}
+
+.card-image {
+  height: 200px;
+  width: 200px;
 }

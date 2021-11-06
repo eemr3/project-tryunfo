@@ -26,6 +26,7 @@ class Form extends Component {
 
     const inputCheckBox = (
       <label htmlFor="input-trunfo">
+        Super Trybe Trunfo
         <input
           data-testid="trunfo-input"
           type="checkbox"
@@ -116,6 +117,7 @@ class Form extends Component {
             dataTestBtn="save-button"
             isDisabled={ isSaveButtonDisabled }
             typeBtn="submit"
+            onClick={ () => {} }
           >
             Salvar
           </Button>

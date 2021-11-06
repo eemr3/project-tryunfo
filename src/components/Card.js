@@ -6,15 +6,6 @@ import Button from './Button/Button';
 
 class Card extends Component {
   render() {
-    const bntDelete = (
-      <Button
-        dataTestBtn="delete-button"
-        typeBtn="button"
-        isDisabled={ false }
-      >
-        Excluir
-      </Button>
-    );
     const {
       cardName,
       cardDescription,
@@ -24,12 +15,30 @@ class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      handleDelete,
       isVisible } = this.props;
+
+    const bntDelete = (cardTitle) => (
+      <Button
+        dataTestBtn="delete-button"
+        typeBtn="button"
+        isDisabled={ false }
+        onClick={ () => handleDelete(cardTitle) }
+      >
+        Excluir
+      </Button>
+    );
+
     return (
       <div className="container-cards">
         <div className="card-content">
           <h3 data-testid="name-card">{cardName}</h3>
-          <img data-testid="image-card" src={ cardImage } alt={ cardName } />
+          <img
+            data-testid="image-card"
+            src={ cardImage }
+            alt={ cardName }
+            className="card-image"
+          />
           <p data-testid="description-card">{cardDescription}</p>
           <span data-testid="attr1-card">{cardAttr1}</span>
           <span data-testid="attr2-card">{cardAttr2}</span>
@@ -37,7 +46,7 @@ class Card extends Component {
           <span data-testid="rare-card">{cardRare}</span>
           {cardTrunfo && <span data-testid="trunfo-card">Super Trunfo</span> }
         </div>
-        {isVisible && bntDelete}
+        {isVisible && bntDelete(cardName)}
       </div>
     );
   }
@@ -53,5 +62,6 @@ Card.propTypes = {
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
   isVisible: PropTypes.bool.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 export default Card;
