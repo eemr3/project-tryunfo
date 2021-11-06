@@ -45,7 +45,8 @@ class App extends React.Component {
       cardAttr3,
       cardImage,
       cardRare,
-      cardTrunfo } = this.state;
+      cardTrunfo,
+    } = this.state;
 
     this.setState((prevState) => ({
       newDeck: [...prevState.newDeck, { cardName,
@@ -63,7 +64,7 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'Normal',
-      cardTrunfo: false,
+      hasTrunfo: prevState.cardTrunfo,
     }));
   }
 
