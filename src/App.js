@@ -18,7 +18,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
-
+      newDeck: [],
     };
 
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
@@ -38,6 +38,33 @@ class App extends React.Component {
 
   onSaveButtonClick(event) {
     event.preventDefault();
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo } = this.state;
+
+    this.setState((prevState) => ({
+      newDeck: [...prevState.newDeck, { cardName,
+        cardDescription,
+        cardAttr1,
+        cardAttr2,
+        cardAttr3,
+        cardImage,
+        cardRare,
+        cardTrunfo }],
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'Normal',
+      cardTrunfo: false,
+    }));
   }
 
   checkedValidation() {
@@ -104,6 +131,7 @@ class App extends React.Component {
             hasTrunfo={ hasTrunfo }
             isSaveButtonDisabled={ isSaveButtonDisabled }
             onSaveButtonClick={ this.onSaveButtonClick }
+
           />
         </section>
         <section className="preview-container">

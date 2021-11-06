@@ -22,10 +22,11 @@ class Form extends Component {
       onSaveButtonClick,
       // hasTrunfo,
       isSaveButtonDisabled,
+
     } = this.props;
     return (
       <section className="container-form">
-        <form>
+        <form onSubmit={ onSaveButtonClick }>
           <Input
             inputId="cardName"
             nameInput="cardName"
@@ -118,6 +119,7 @@ class Form extends Component {
           <Button
             onSaveButtonClick={ onSaveButtonClick }
             isDisabled={ isSaveButtonDisabled }
+
           />
         </form>
       </section>
@@ -137,5 +139,6 @@ Form.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
+
 };
 export default Form;
