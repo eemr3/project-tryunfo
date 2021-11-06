@@ -1,5 +1,8 @@
 import React from 'react';
+import Card from './components/Card';
 import Form from './components/Form';
+
+import './App.css';
 
 class App extends React.Component {
   constructor() {
@@ -7,9 +10,9 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
+      cardAttr1: '',
+      cardAttr2: '',
+      cardAttr3: '',
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
@@ -43,22 +46,36 @@ class App extends React.Component {
     } = this.state;
 
     return (
-      <div>
-        <Form
-          cardName={ cardName }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardDescription={ cardDescription }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          onInputChange={ this.onInputChange }
-          hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
-      </div>
+      <main className="container">
+        <section className="form-container">
+          <Form
+            cardName={ cardName }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardDescription={ cardDescription }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            onInputChange={ this.onInputChange }
+            hasTrunfo={ hasTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
+        </section>
+        <section className="preview-container">
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </section>
+      </main>
     );
   }
 }

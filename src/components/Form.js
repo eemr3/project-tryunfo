@@ -94,16 +94,27 @@ class Form extends Component {
           >
             Raridade
           </Select>
-          <Input
+          <label htmlFor="input-trunfo">
+            Super Trybe Trunfo
+            <input
+              type="checkbox"
+              name="cardTrunfo"
+              id="input-trunfo"
+              onChange={ onInputChange }
+              checked={ cardTrunfo }
+              data-testid="trunfo-input"
+            />
+          </label>
+          {/* <Input
             nameInput="cardTrunfo"
             inputId="input-trunfo"
             typeInput="checkbox"
             dataTest="trunfo-input"
-            inputValue={ cardTrunfo }
             onInputChange={ onInputChange }
+            checkedValue={ cardTrunfo }
           >
             Super Trybe Trunfo
-          </Input>
+          </Input> */}
           <Button
             onSaveButtonClick={ onSaveButtonClick }
             isDisabled={ isSaveButtonDisabled }
@@ -116,9 +127,9 @@ class Form extends Component {
 
 Form.propTypes = {
   cardName: PropTypes.string.isRequired,
-  cardAttr1: PropTypes.number.isRequired,
-  cardAttr2: PropTypes.number.isRequired,
-  cardAttr3: PropTypes.number.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,

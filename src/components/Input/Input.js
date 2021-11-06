@@ -23,7 +23,7 @@ class Input extends Component {
           onChange={ onInputChange }
           name={ nameInput }
           value={ inputValue }
-          checked
+
         />
       </label>
     );
