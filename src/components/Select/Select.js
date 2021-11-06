@@ -10,13 +10,13 @@ class Select extends Component {
         <select
           data-testid={ dataTest }
           id={ sltId }
-          name="raridade"
+          name="cardRare"
           value={ sltValue }
           onChange={ onInputChange }
         >
-          <option value="normal">Normal</option>
-          <option value="raro">Raro</option>
-          <option value="muito raro">Muito raro</option>
+          <option value="Normal">Normal</option>
+          <option value="Raro">Raro</option>
+          <option value="Muito raro">Muito raro</option>
         </select>
       </label>
     );

@@ -14,7 +14,7 @@ class App extends React.Component {
       cardAttr2: '',
       cardAttr3: '',
       cardImage: '',
-      cardRare: '',
+      cardRare: 'Normal',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: false,
@@ -47,7 +47,7 @@ class App extends React.Component {
 
     return (
       <main className="container">
-        <section className="form-container">
+        <section className="form-contaniner">
           <Form
             cardName={ cardName }
             cardAttr1={ cardAttr1 }
