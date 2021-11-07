@@ -105,6 +105,7 @@ class Form extends Component {
             dataTest="rare-input"
             sltValue={ cardRare }
             onInputChange={ onInputChange }
+            sltName="cardRare"
           >
             Raridade
           </Select>

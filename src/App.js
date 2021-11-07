@@ -3,7 +3,7 @@ import Card from './components/Card';
 import Form from './components/Form';
 
 import './App.css';
-import Input from './components/Input/Input';
+import Filtered from './components/Filtered/Filtered';
 
 class App extends React.Component {
   constructor() {
@@ -21,7 +21,12 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       newDeck: [],
       isDeleteButton: true,
-      searchCard: '',
+      searchCard: {
+        nameCard: '',
+        rareCard: 'todas',
+        trunfoCard: false,
+
+      },
     };
 
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
@@ -30,6 +35,7 @@ class App extends React.Component {
     this.validationForm = this.validationForm.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.getFilterCard = this.getFilterCard.bind(this);
   }
 
   handleDelete(cardTitle) {
@@ -40,8 +46,12 @@ class App extends React.Component {
     }));
   }
 
-  handleSearch({ target: { value } }) {
-    this.setState({ searchCard: value });
+  handleSearch({ target }) {
+    const { searchCard } = this.state;
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({ searchCard: { ...searchCard, [name]: value } });
   }
 
   onInputChange({ target }) {
@@ -54,7 +64,6 @@ class App extends React.Component {
   }
 
   onSaveButtonClick(event) {
-    event.preventDefault();
     const { cardName,
       cardDescription,
       cardAttr1,
@@ -65,8 +74,9 @@ class App extends React.Component {
       cardTrunfo,
     } = this.state;
 
+    event.preventDefault();
     this.setState((prevState) => ({
-      newDeck: [...prevState.newDeck, { cardName,
+      newDeck: prevState.newDeck.concat({ cardName,
         cardDescription,
         cardAttr1,
         cardAttr2,
@@ -74,7 +84,7 @@ class App extends React.Component {
         cardImage,
         cardRare,
         cardTrunfo,
-      }],
+      }),
       cardName: '',
       cardDescription: '',
       cardAttr1: '0',
@@ -82,8 +92,21 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'Normal',
-      hasTrunfo: prevState.cardTrunfo,
+      cardTrunfo: false,
+      hasTrunfo: cardTrunfo === true ? prevState.cardTrunfo : !prevState.cartTrunfo,
     }));
+  }
+
+  getFilterCard() {
+    const { newDeck, searchCard: {
+      nameCard,
+      rareCard,
+      trunfoCard,
+    } } = this.state;
+    return newDeck.filter((card) => (nameCard === '' ? newDeck
+      : card.cardName.includes(nameCard)))
+      .filter((card) => (rareCard === 'todas' ? newDeck : card.cardRare === rareCard))
+      .filter((card) => (card.cardTrunfo === trunfoCard ? newDeck : !trunfoCard));
   }
 
   checkedValidation() {
@@ -132,11 +155,14 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      newDeck,
       isDeleteButton,
-      searchCard,
-    } = this.state;
+      searchCard: {
+        nameCard, rareCard,
+        trunfoCard,
 
+      },
+    } = this.state;
+    const resultGetFilter = this.getFilterCard();
     return (
       <main className="container">
         <section className="container-form-card">
@@ -154,7 +180,6 @@ class App extends React.Component {
               hasTrunfo={ hasTrunfo }
               isSaveButtonDisabled={ isSaveButtonDisabled }
               onSaveButtonClick={ this.onSaveButtonClick }
-
             />
           </div>
           <div className="preview-container">
@@ -176,20 +201,16 @@ class App extends React.Component {
           </div>
         </section>
         <section className="list-card">
-          <div>
-            <Input
-              inputId="searchCard"
-              nameInput="searchCard"
-              typeInput="text"
-              dataTest="name-filter"
-              inputValue={ searchCard }
-              onInputChange={ this.handleSearch }
-            >
-              Nome da carta
-            </Input>
-          </div>
+          <h2>Todas as cartas</h2>
+
+          <Filtered
+            nameCard={ nameCard }
+            rareCard={ rareCard }
+            trunfoCard={ trunfoCard }
+            handleSearch={ this.handleSearch }
+          />
           {this.onSaveButtonClick
-          && newDeck.filter((card) => card.cardName.includes(searchCard)).map((card) => (
+          && resultGetFilter.map((card) => (
             <div key={ card.cardName }>
               <Card
                 cardName={ card.cardName }
