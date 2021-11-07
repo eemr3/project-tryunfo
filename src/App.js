@@ -3,6 +3,7 @@ import Card from './components/Card';
 import Form from './components/Form';
 
 import './App.css';
+import Input from './components/Input/Input';
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +21,7 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       newDeck: [],
       isDeleteButton: true,
+      searchCard: '',
     };
 
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
@@ -27,6 +29,7 @@ class App extends React.Component {
     this.checkedValidation = this.checkedValidation.bind(this);
     this.validationForm = this.validationForm.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleDelete(cardTitle) {
@@ -35,6 +38,10 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
     }));
+  }
+
+  handleSearch({ target: { value } }) {
+    this.setState({ searchCard: value });
   }
 
   onInputChange({ target }) {
@@ -127,6 +134,7 @@ class App extends React.Component {
       isSaveButtonDisabled,
       newDeck,
       isDeleteButton,
+      searchCard,
     } = this.state;
 
     return (
@@ -168,8 +176,20 @@ class App extends React.Component {
           </div>
         </section>
         <section className="list-card">
+          <div>
+            <Input
+              inputId="searchCard"
+              nameInput="searchCard"
+              typeInput="text"
+              dataTest="name-filter"
+              inputValue={ searchCard }
+              onInputChange={ this.handleSearch }
+            >
+              Nome da carta
+            </Input>
+          </div>
           {this.onSaveButtonClick
-          && newDeck.map((card) => (
+          && newDeck.filter((card) => card.cardName.includes(searchCard)).map((card) => (
             <div key={ card.cardName }>
               <Card
                 cardName={ card.cardName }
