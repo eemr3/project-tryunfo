@@ -1,9 +1,10 @@
 import React from 'react';
-import Card from './components/Card';
-import Form from './components/Form';
+import Card from './components/Card/Card';
+import Form from './components/Form/Form';
+import ListCards from './components/ListCards/ListCards';
+import data from './data/CardData';
 
 import './App.css';
-import Filtered from './components/Filtered/Filtered';
 
 class App extends React.Component {
   constructor() {
@@ -19,13 +20,12 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
-      newDeck: [],
+      newDeck: data,
       isDeleteButton: true,
       searchCard: {
         nameCard: '',
         rareCard: 'todas',
         trunfoCard: false,
-
       },
     };
 
@@ -36,6 +36,10 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.getFilterCard = this.getFilterCard.bind(this);
+  }
+
+  componentDidMount() {
+    this.resetHasTrunfo();
   }
 
   handleDelete(cardTitle) {
@@ -50,7 +54,6 @@ class App extends React.Component {
     const { searchCard } = this.state;
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-
     this.setState({ searchCard: { ...searchCard, [name]: value } });
   }
 
@@ -61,6 +64,10 @@ class App extends React.Component {
       this.checkedValidation();
       this.validationForm();
     });
+  }
+
+  onsSave() {
+    return this.state;
   }
 
   onSaveButtonClick(event) {
@@ -93,6 +100,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'Normal',
       cardTrunfo: false,
+      isSaveButtonDisabled: true,
       hasTrunfo: cardTrunfo === true ? prevState.cardTrunfo : !prevState.cartTrunfo,
     }));
   }
@@ -107,6 +115,11 @@ class App extends React.Component {
       : card.cardName.includes(nameCard)))
       .filter((card) => (rareCard === 'todas' ? newDeck : card.cardRare === rareCard))
       .filter((card) => (card.cardTrunfo === trunfoCard ? newDeck : !trunfoCard));
+  }
+
+  resetHasTrunfo = () => {
+    this.setState((prevState) => ({ hasTrunfo: prevState.newDeck
+      .some((trunfo) => trunfo.cardTrunfo) }));
   }
 
   checkedValidation() {
@@ -138,8 +151,8 @@ class App extends React.Component {
     const resultValue = minMax.every((value) => (!(value < '0' || value > '90')));
     const sum = minMax.reduce((acc, curr) => Number(acc) + Number(curr));
     const maxAttr = 210;
-    const teste = sum > maxAttr;
-    const result = resultValue && this.checkedValidation() && !teste;
+    const sumAttr = sum > maxAttr;
+    const result = resultValue && this.checkedValidation() && !sumAttr;
     this.setState({ isSaveButtonDisabled: !result });
   }
 
@@ -163,8 +176,9 @@ class App extends React.Component {
       },
     } = this.state;
     const resultGetFilter = this.getFilterCard();
+
     return (
-      <main className="container">
+      <main className="container-app">
         <section className="container-form-card">
           <div className="form-container">
             <Form
@@ -183,50 +197,35 @@ class App extends React.Component {
             />
           </div>
           <div className="preview-container">
-            <h2>Pré-visualização</h2>
             <div>
-              <Card
-                cardName={ cardName }
-                cardDescription={ cardDescription }
-                cardAttr1={ cardAttr1 }
-                cardAttr2={ cardAttr2 }
-                cardAttr3={ cardAttr3 }
-                cardImage={ cardImage }
-                cardRare={ cardRare }
-                cardTrunfo={ cardTrunfo }
-                isVisible={ false }
-                handleDelete={ () => {} }
-              />
+              <h2>Pré-visualização</h2>
             </div>
+            <Card
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+              isVisible={ false }
+              handleDelete={ () => {} }
+              isDeleteButton={ false }
+            />
           </div>
         </section>
-        <section className="list-card">
-          <h2>Todas as cartas</h2>
+        <ListCards
+          nameCard={ nameCard }
+          rareCard={ rareCard }
+          trunfoCard={ trunfoCard }
+          resultGetFilter={ resultGetFilter }
+          isDeleteButton={ isDeleteButton }
+          handleDelete={ this.handleDelete }
+          onSaveButtonClick={ this.onSaveButtonClick }
+          handleSearch={ this.handleSearch }
 
-          <Filtered
-            nameCard={ nameCard }
-            rareCard={ rareCard }
-            trunfoCard={ trunfoCard }
-            handleSearch={ this.handleSearch }
-          />
-          {this.onSaveButtonClick
-          && resultGetFilter.map((card) => (
-            <div key={ card.cardName }>
-              <Card
-                cardName={ card.cardName }
-                cardDescription={ card.cardDescription }
-                cardAttr1={ card.cardAttr1 }
-                cardAttr2={ card.cardAttr2 }
-                cardAttr3={ card.cardAttr3 }
-                cardImage={ card.cardImage }
-                cardRare={ card.cardRare }
-                cardTrunfo={ card.cardTrunfo }
-                isVisible={ isDeleteButton }
-                handleDelete={ this.handleDelete }
-              />
-            </div>
-          ))}
-        </section>
+        />
       </main>
     );
   }

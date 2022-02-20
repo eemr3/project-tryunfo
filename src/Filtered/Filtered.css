@@ -1,0 +1,16 @@
+.label-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.checked-control label{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-left: 20px;
+}
+
+.container-filter p {
+  font-size: 1.4rem;
+  margin-top: 40px;
+}

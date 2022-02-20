@@ -1,0 +1,97 @@
+.container-form {
+  margin: 40px;
+  width: 52%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-card-name {
+  border: 0;
+  color: #3d495c;
+  border-bottom: 1px solid #3d495c;
+  height: 37px;
+  margin-bottom: 17px;
+  width: 355px;
+}
+
+form label {
+  font-weight: 500;
+}
+
+.text-card-description {
+  border: 0;
+  color: #3d495c;
+  border-bottom: 1px solid #3d495c;
+  height: 135px;
+  padding: 7px;
+  resize: none;
+  width: 355px
+}
+
+.attr-container label { 
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+.input-attr-card {
+  width: 78%;
+}
+
+.input-group-prepend {
+  background-color: #023031;
+  height: 38px;
+
+}
+
+.input-group {
+  align-items: center;
+}
+
+.input-group-text {
+  background-color: transparent;
+}
+
+.input-imagem {
+  align-items: center;
+  display: flex;
+  margin-bottom: 15px;
+  width: 95%;
+}
+
+.input-imagem label {
+  margin-right: 3px;
+}
+
+.select-rarity {
+  background-color: white;
+  border: 0;
+  border-bottom: 1px solid #3d495c;
+  color: #3d495c;
+  height: 37px;
+  margin-bottom: 17px;
+  width: 355px;
+}
+
+.button-save {
+  background-color: #003be5;
+  color: #fff;
+  cursor: pointer;
+  height: 40px;
+  margin-top: 40px;
+  width: 115px;
+}
+
+.button-save:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.container-check label{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-left: 20px;
+}
